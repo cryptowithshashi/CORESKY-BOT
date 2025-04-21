@@ -1,5 +1,7 @@
 // src/events.js
 // Exports a shared EventEmitter instance for decoupling components (bot logic, TUI).
+// Created by crypto with shashi
+
 
 import EventEmitter from 'eventemitter3';
 
