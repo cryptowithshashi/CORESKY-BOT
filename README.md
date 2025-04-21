@@ -1,104 +1,82 @@
-# core-sky-cli 💎
+# CORESKY BOT
 
-Automated Coresky check-in bot with a real-time Terminal UI (TUI), built from scratch with enhanced features and clear separation of concerns.
+A Node.js script built with a Terminal User Interface (TUI) that automates interactions with the CoreSky protocol, focusing on simplifying and managing multiple wallet tasks efficiently.
 
-## Features ✨
+## Features
 
-* **Automated Daily Check-ins:** Runs check-ins for multiple accounts every 24 hours.
-* **Real-time TUI Dashboard:** Uses `blessed` to provide a dynamic terminal interface:
-    * **Main Log:** Shows all informational, warning, error, and wait messages with timestamps and emojis (ℹ️, ✅, ⚠️, 🚨, ⌛).
-    * **Success Log:** Specifically tracks successful check-ins and "already checked in" statuses.
-    * **Status Info:** Displays bot status (RUNNING, WAITING, etc.), loaded token count, individual token status (Valid/Expired/Checked), and a countdown to the next run.
-* **Token Management:** Reads JWT tokens securely from `token.txt`.
-* **JWT Validation:** Checks for token expiration before attempting check-in.
-* **Modular Structure:** Code organized into services, utilities, TUI components, and core logic.
-* **Event-Driven:** Uses an `EventEmitter` to decouple bot logic from the UI.
-* **Automated Scaffolding:** Includes a script (`npm run scaffold`) to generate the project structure.
-* **VS Code Integration:** Provides basic `.vscode` settings for ESLint/Prettier.
-* **Clean Exit:** Handles `Ctrl+C` gracefully to stop timers and restore the terminal.
+- **Automated CoreSky Tasks**: Executes predefined tasks on the CoreSky protocol automatically.
+- **Multi-Wallet Compatibility**: Accepts multiple wallet formats like private keys, mnemonics, or hex strings.
+- **Batch Processing**: Perform actions for multiple wallets in one go.
+- **Proxy Support**: Supports rotating proxies for safer and distributed execution.
+- **Random Task Looping**: Customize how many times each wallet performs the set of tasks.
+- **User-Friendly TUI**: Interactive and informative Terminal UI for real-time status and logs.
 
-## Installation ⚙️
+## Pre Requisites
 
-1.  **Clone the repository:**
-    *(Replace `<your-repo-url>` with the actual URL if you host it on GitHub/GitLab etc.)*
-    ```bash
-    git clone <your-repo-url> core-sky-cli
-    cd core-sky-cli
-    ```
-    *Alternatively, if you don't have a repo yet, just create the `core-sky-cli` directory manually and place the files inside.*
-
-2.  **Install dependencies:**
-    Make sure you have Node.js v18 or later installed.
-    ```bash
-    npm install
-    ```
-
-3.  **Run the scaffolding script (Important!):**
-    This script creates the necessary directories and placeholder files if they don't exist. It's safe to run even if files are already present.
-    ```bash
-    npm run scaffold
-    ```
-
-4.  **Add your Coresky Tokens:**
-    Open the `token.txt` file in the project's root directory. Add your Coresky JWT tokens, one token per line. Lines starting with `#` are ignored.
-    ```
-    # Add your Coresky JWT tokens here, one per line.
-    # Example:
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...yourFirstToken...
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...yourSecondToken...
-    # anotherTokenHere...
-    ```
-
-5.  **(Optional) Open in VS Code:**
-    If you have VS Code and the `code` command line launcher installed:
-    ```bash
-    code .
-    ```
-    VS Code will suggest recommended extensions (ESLint, Prettier) defined in `.vscode/extensions.json`.
-
-## Usage ▶️
-
-Start the bot and the TUI:
+Make sure Git, Node.js, and npm are installed on your system.
 
 ```bash
-npm start
+sudo apt update
+sudo apt install git nodejs npm -y
 ```
 
-The terminal will clear and display the TUI dashboard. The bot will load tokens, perform an initial check-in cycle, and then schedule subsequent runs every 24 hours.
+## INSTALLATION GUIDE
 
-**Exiting:** Press `Ctrl+C` to shut down the application cleanly.
+### Clone Repository
 
-## TUI Layout 🖥️
-
+```bash
+git clone https://github.com/cryptowithshashi/CORESKY-BOT.git
+cd CORESKY-BOT
 ```
-+--------------------------------------------------------------------------+
-| 💎 CORE-SKY AUTO SIGN-IN by Crypto With Shashi 💎                        |
-+--------------------------------------------------------------------------+
-| 📜 Main Log                      | ✅ Success Log          |
-| [HH:MM:SS] ℹ️ TUI Initialized...  | [HH:MM:SS] ✅ [Acc 1] +10 pts |
-| [HH:MM:SS] 🔑 Loaded 2 keys...   | [HH:MM:SS] ⚠️ [Acc 2] Done  |
-| [HH:MM:SS] 🚀 Starting cycle...  |                         |
-| [HH:MM:SS] --- Proc. Acc 1 ---   |                         |
-| [HH:MM:SS] 📡 Attempting sign-in |                         |
-| [HH:MM:SS] ✅ [Acc 1] +10 pts    +-------------------------+
-| [HH:MM:SS] ⌛ Waiting 3s...      | 📊 Status Info          |
-| [HH:MM:SS] --- Proc. Acc 2 ---   | Bot Status: WAITING     |
-| [HH:MM:SS] 📡 Attempting sign-in | Tokens Loaded: 2        |
-| [HH:MM:SS] ⚠️ [Acc 2] Already... | Token Status:           |
-| [HH:MM:SS] ✅ Cycle finished.    |  Key 1: eyJ...AbCd (✅) |
-| [HH:MM:SS] ⏳ Scheduling next... |  Key 2: eyJ...XyZ (⚠️) |
-|                                  | Next Check-in: 23h 59m 50s|
-+----------------------------------+-------------------------+
+
+### Install Dependencies
+
+```bash
+npm install
 ```
-*(Layout is approximate and depends on terminal size)*
 
-## Troubleshooting ❓
+## Configuration
 
-* **`Token file not found`:** Ensure `token.txt` exists in the root directory where you run `npm start` and that you ran `npm run scaffold`.
-* **`No valid API keys found`:** Check `token.txt`. Make sure tokens are valid JWTs, one per line, and no extra characters are present. Remove any comment lines (`#`).
-* **`Token is expired`:** The JWT token has passed its expiration date. Obtain a new token from Coresky and update `token.txt`.
-* **API Errors / Failures:** Check the error messages in the Main Log. It could be a network issue, an invalid token rejected by the API, or a change in the Coresky API itself.
-* **TUI Looks Garbled:** Ensure your terminal supports Unicode (UTF-8) and has sufficient width/height. Try resizing the terminal window.
+- **wallets.txt** - This should contain your CoreSky tokens, one per line. 
+  - To get the token:
+    1. Visit [https://coresky.com](https://coresky.com) and sign in.
+    2. Open Developer Tools (right-click -> Inspect).
+    3. Go to the **Network** tab.
+    4. Refresh the page or perform an action.
+    5. Look for a request that includes the token in the headers or payload.
+    6. Copy the token and paste it line by line in `wallets.txt`.
 
----
-*This project is for educational purposes. Use responsibly and in accordance with Coresky's terms of service.*
+- **proxies.txt** (Optional) - Add proxies line by line. Format examples:
+  ```
+  host:port
+  host:port:user:pass
+  user:pass@host:port
+  ```
+
+- **.env** (Optional) - Customize your CoreSky RPC endpoint:
+  ```env
+  CORESKY_RPC_URL=https://rpc.coresky.network
+  ```
+
+## Execute the Bot
+
+```bash
+node app.js
+```
+
+You will be prompted to enter the number of repetitions per wallet. The TUI will then appear and begin processing.
+
+## TUI Controls
+
+- **Switch Views**: Press `Tab` to toggle between the log and status panes.
+- **Scroll**: Use arrow keys, `j/k`, or mouse scroll.
+- **Exit**: Press `Ctrl+C` to terminate the script.
+
+## Disclaimer
+
+This script handles sensitive wallet data and interacts with blockchain networks. Use it at your own risk. The author and AI assistant hold no responsibility for any losses or damages.
+
+## ABOUT ME
+
+- **Twitter**: [https://x.com/SHASHI522004](https://x.com/SHASHI522004)
+- **GitHub**: [https://github.com/cryptowithshashi](https://github.com/cryptowithshashi)
