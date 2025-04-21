@@ -1,0 +1,32 @@
+{
+    "name": "core-sky-cli",
+    "version": "1.0.0",
+    "description": "Automated Coresky check-in bot with a Terminal UI.",
+    "main": "src/index.js",
+    "scripts": {
+      "start": "node src/index.js",
+      "scaffold": "node scripts/scaffold.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+      "coresky",
+      "automation",
+      "check-in",
+      "tui",
+      "cli"
+    ],
+    "author": "Crypto With Shashi (Generated)",
+    "license": "MIT",
+    "dependencies": {
+      "axios": "^1.7.2", 
+      "blessed": "^0.1.81",
+      "chalk": "^4.1.2", 
+      "eventemitter3": "^5.0.1", 
+      "figlet": "^1.7.0", 
+      "jsonwebtoken": "^9.0.2" 
+    },
+    "engines": {
+      "node": ">=18.0.0" 
+    }
+  }
+  

@@ -1,0 +1,5 @@
+node_modules/
+.env
+
+# Optionally gitignore wallet file if tokens are sensitive
+wallet.txt
