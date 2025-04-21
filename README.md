@@ -61,7 +61,7 @@ npm install
 ## Execute the Bot
 
 ```bash
-node app.js
+npm start
 ```
 
 You will be prompted to enter the number of repetitions per wallet. The TUI will then appear and begin processing.
