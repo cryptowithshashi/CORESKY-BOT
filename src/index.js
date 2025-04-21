@@ -1,6 +1,7 @@
 // src/index.js
 // Main entry point for the core-sky-cli application.
 // Initializes the TUI and starts the bot logic.
+// Created by crypto with shashi
 
 import initializeUI from './tui/ui.js';
 import { startBot } from './botLogic.js';
