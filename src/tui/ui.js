@@ -70,8 +70,10 @@ function updateStatusInfoBox() {
         content += `${chalk.bold('Token Status:')}\n`;
         loadedTokenDetails.forEach(t => {
             let color = chalk.white;
-            if (t.status === 'Expired') color = chalk.red;
-            if (t.status === 'Valid') color = chalk.green;
+            if (t.status === 'Expired' || t.status === 'Expired 🚨') color = chalk.red;
+            else if (t.status === 'Valid' || t.status === 'Checked ✅') color = chalk.green;
+            else if (t.status === 'Done Today ⚠️') color = chalk.yellow;
+            else if (t.status === 'Failed ❌') color = chalk.redBright; // Different red for failure vs expired
             content += `  Key ${t.index + 1}: ${t.maskedToken} (${color(t.status)})\n`;
         });
     }
@@ -179,7 +181,6 @@ function handleTokenStatus(tokenData) {
 function handleCheckinResult(resultData) {
     // The log event handler already pushes messages to the correct logs based on level.
     // We might update the token status here if needed (e.g., mark as 'Checked' today).
-    // For now, relying on the log handler is sufficient.
     // Example: Update token status visually
     const tokenDetail = loadedTokenDetails.find(t => t.index === resultData.index);
     if (tokenDetail) {
@@ -206,10 +207,11 @@ function handleCheckinResult(resultData) {
 function initializeUI() {
   // Create the screen instance
   screen = blessed.screen({
-    smartCSR: true, // Optimize cursor movements
+    // *** CHANGED smartCSR and autoPadding to false ***
+    smartCSR: false, // Optimize cursor movements (try false if rendering issues)
+    autoPadding: false, // Automatically add padding (try false if rendering issues)
     title: 'Core-Sky Auto Sign-In CLI',
     fullUnicode: true, // Support emojis and other unicode characters
-    autoPadding: true, // Automatically add padding to elements
   });
 
   // Create UI components
@@ -245,3 +247,4 @@ function initializeUI() {
 
 export default initializeUI;
 
+// created by crypto with shashi
